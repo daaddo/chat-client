@@ -1,9 +1,16 @@
 package it.cascella.chat;
 
 import it.cascella.chat.gui.login.LoginFrame;
+import it.cascella.chat.logger.LoggerManager;
 
 public class Main {
     public static void main(String[] args) {
+        if (args.length>0) {
+            if (args[0].equalsIgnoreCase("--verbose")) {
+                LoggerManager.getInstance().setVerbose(true);
+
+            }
+        }
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

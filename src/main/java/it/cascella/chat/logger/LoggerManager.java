@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class LoggerManager {
     private static LoggerManager instance = null;
-    private boolean verbose = true;
+    private boolean verbose = false;
 
     private LoggerManager() {
     }

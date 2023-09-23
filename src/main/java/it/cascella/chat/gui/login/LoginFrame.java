@@ -4,13 +4,15 @@
  */
 package it.cascella.chat.gui.login;
 
+import it.cascella.chat.events.AuthenticationEventListner;
 import it.cascella.chat.logger.LoggerManager;
+import it.cascella.chat.server.ServerManager;
 
 /**
  *
  * @author trapa
  */
-public class LoginFrame extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame implements AuthenticationEventListner {
 
     /**
      * Creates new form LoginFrame
@@ -18,6 +20,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        ServerManager.getInstance().addAuthListner(this);
     }
 
     /**
@@ -105,6 +108,7 @@ public class LoginFrame extends javax.swing.JFrame {
         String password = new String(passwordChars);
         LoggerManager.getInstance().debug("username = "+username);
         LoggerManager.getInstance().debug("password = "+password);
+        ServerManager.getInstance().login(username,password);
     }//GEN-LAST:event_jButtonLoginButtonActionPerformed
 
     /**
@@ -147,5 +151,17 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordFieldPassword;
     private javax.swing.JTextField jTextFieldUsername;
+
+    @Override
+    public void loginSuccessfull(int id) {
+        LoggerManager.getInstance().info("Login Succesfull");
+        LoggerManager.getInstance().debug("id = "+id);
+    }
+
+    @Override
+    public void loginFailed(String reason) {
+        LoggerManager.getInstance().error("Login Failed");
+        LoggerManager.getInstance().debug("Reason: "+reason);
+    }
     // End of variables declaration//GEN-END:variables
 }
